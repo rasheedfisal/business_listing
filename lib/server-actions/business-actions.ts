@@ -4,6 +4,7 @@ import db from "../supabase/db";
 import { CreateBusinessSchema } from "../types";
 import { businesses } from "@/migrations/schema";
 import { eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 
 export const createBusiness = async (
   biz: z.infer<typeof CreateBusinessSchema>,
@@ -14,6 +15,7 @@ export const createBusiness = async (
       title: biz.title,
       createdBy: authUserID,
     });
+    revalidatePath("/dashboard");
     return { data: null, error: null };
   } catch (error) {
     console.log(error);
@@ -29,6 +31,7 @@ export const updateBusiness = async (
       .update(businesses)
       .set(business)
       .where(eq(businesses.id, businessID));
+    revalidatePath("/dashboard");
     return { data: null, error: null };
   } catch (error) {
     console.log(error);
@@ -37,9 +40,10 @@ export const updateBusiness = async (
 };
 
 export const deleteBusiness = async (businessID: string) => {
-  if (!businessID) return;
+  if (!businessID) return { data: null, error: "Error: ID is Empty" };
   try {
     await db.delete(businesses).where(eq(businesses.id, businessID));
+    revalidatePath("/dashboard");
     return { data: null, error: null };
   } catch (error) {
     console.log(error);

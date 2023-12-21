@@ -18,10 +18,12 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Loader from "@/components/global/Loader";
 import { actionLoginUser } from "@/lib/server-actions/auth-actions";
+import { useToast } from "@/components/ui/use-toast";
 
 const LoginForm = () => {
   const router = useRouter();
-  const [submitError, setSubmitError] = useState("");
+
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     mode: "onChange",
@@ -37,7 +39,11 @@ const LoginForm = () => {
     const { error } = await actionLoginUser(formData);
     if (error) {
       form.reset();
-      setSubmitError(error.message);
+      toast({
+        variant: "destructive",
+        title: "Oops Somthing Happend!",
+        description: error.message,
+      });
     }
     router.replace("/dashboard");
   };
@@ -45,9 +51,6 @@ const LoginForm = () => {
   return (
     <Form {...form}>
       <form
-        onChange={() => {
-          if (submitError) setSubmitError("");
-        }}
         onSubmit={form.handleSubmit(onSubmit)}
         className="px-10 py-5 w-fit rounded-lg shadow-xl space-y-3 bg-gray-50 max-md:w-11/12 max-md:px-5"
       >
@@ -100,7 +103,6 @@ const LoginForm = () => {
             </FormItem>
           )}
         />
-        {submitError && <FormMessage>{submitError}</FormMessage>}
         <Button
           type="submit"
           className="w-full p-6 text-slate-50"

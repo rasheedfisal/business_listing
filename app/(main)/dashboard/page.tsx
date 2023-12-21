@@ -1,4 +1,4 @@
-import BusinessList from "@/components/business/BusinessList";
+import BusinessList from "@/app/(main)/dashboard/BusinessList";
 import Title from "@/components/business/Title";
 import React from "react";
 

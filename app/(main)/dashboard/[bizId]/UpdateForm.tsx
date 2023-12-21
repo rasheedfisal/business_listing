@@ -8,36 +8,37 @@ import { CreateBusinessSchema } from "@/lib/types";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Loader from "@/components/global/Loader";
-import { createBusiness } from "@/lib/server-actions/business-actions";
-import { useSupabaseUser } from "@/lib/providers/supabase-user-provider";
+import { updateBusiness } from "@/lib/server-actions/business-actions";
 import { useToast } from "@/components/ui/use-toast";
 
-const CreateForm = () => {
+type Props = {
+  id: string;
+  title: string;
+};
+
+const UpdateForm = ({ id, title }: Props) => {
   const router = useRouter();
-  const { user } = useSupabaseUser();
   const { toast } = useToast();
 
-  const form = useForm<z.infer<typeof CreateBusinessSchema>>({
+  const form = useForm<Partial<z.infer<typeof CreateBusinessSchema>>>({
     mode: "onChange",
     resolver: zodResolver(CreateBusinessSchema),
-    defaultValues: { title: "" },
+    defaultValues: { title },
   });
 
   const isLoading = form.formState.isSubmitting;
 
-  const onSubmit: SubmitHandler<z.infer<typeof CreateBusinessSchema>> = async (
-    formData
-  ) => {
-    const { error } = await createBusiness(formData, user!.id);
+  const onSubmit: SubmitHandler<
+    Partial<z.infer<typeof CreateBusinessSchema>>
+  > = async (formData) => {
+    const { error } = await updateBusiness(formData, id);
     if (error) {
       form.reset();
       toast({
@@ -88,7 +89,7 @@ const CreateForm = () => {
             disabled={isLoading}
             className="rounded-md bg-primary text-gray-50 px-4 py-2 transition ease-in-out focus:scale-95 hover:-translate-y-1"
           >
-            {!isLoading ? "Save" : <Loader />}
+            {!isLoading ? "Update" : <Loader />}
           </Button>
         </div>
       </form>
@@ -96,4 +97,4 @@ const CreateForm = () => {
   );
 };
 
-export default CreateForm;
+export default UpdateForm;

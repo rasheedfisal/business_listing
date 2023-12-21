@@ -23,11 +23,12 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { MailCheck } from "lucide-react";
 import { SignUpSchema, LoginSchema } from "@/lib/types";
 import { actionSignUpUser } from "@/lib/server-actions/auth-actions";
+import { useToast } from "@/components/ui/use-toast";
 
 const SignupForm = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [submitError, setSubmitError] = useState("");
+  const { toast } = useToast();
   const [confirmation, setConfirmation] = useState(false);
 
   const codeExchangeError = useMemo(() => {
@@ -55,7 +56,11 @@ const SignupForm = () => {
   const onSubmit = async ({ email, password }: z.infer<typeof LoginSchema>) => {
     const { error } = await actionSignUpUser({ email, password });
     if (error) {
-      setSubmitError(error.message);
+      toast({
+        variant: "destructive",
+        title: "Oops Somthing Happend!",
+        description: error.message,
+      });
       form.reset();
       return;
     }
@@ -65,9 +70,6 @@ const SignupForm = () => {
   return (
     <Form {...form}>
       <form
-        onChange={() => {
-          if (submitError) setSubmitError("");
-        }}
         onSubmit={form.handleSubmit(onSubmit)}
         className="px-10 py-5 w-fit rounded-lg shadow-xl space-y-3 bg-gray-50 max-md:w-11/12 max-md:px-5"
       >
@@ -80,7 +82,7 @@ const SignupForm = () => {
           className="
         text-foreground/60"
         >
-          An all-In-One Collaboration and Productivity Platform
+          Business Listing and Productivity Platform
         </FormDescription>
         {/* <!-- Header --> */}
         <div className="my-8">
@@ -153,7 +155,6 @@ const SignupForm = () => {
           </>
         )}
 
-        {submitError && <FormMessage>{submitError}</FormMessage>}
         <span>
           Already have an account?{" "}
           <Link href="/login" className="text-primary">
