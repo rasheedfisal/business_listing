@@ -6,7 +6,7 @@ import Logout from "./Logout";
 const Sidebar = () => {
   return (
     <div
-      className="bg-gray-50 min-w-full px-4 py-2 flex flex-col gap-1 sticky top-0 h-screen max-md:items-center max-md:px-2"
+      className="bg-gray-50 min-w-full md:w-56 px-4 py-2 flex flex-col gap-1 sticky top-0 h-screen max-md:items-center max-md:px-2"
       style={{
         boxShadow:
           "4px 0 6px -1px rgb(0 0 0 / 0.1),2px 0 4px -2px rgb(0 0 0 / 0.1)",

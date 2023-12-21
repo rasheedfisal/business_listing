@@ -2,7 +2,7 @@ import TitleBorder from "@/components/global/TitleBorder";
 import React from "react";
 import db from "@/lib/supabase/db";
 import FormatDate from "@/lib/Date";
-import { businesses, users } from "@/lib/supabase/schema";
+import { businesses, users } from "@/migrations/schema";
 import { eq } from "drizzle-orm";
 import { Calendar, GripVertical, Mail } from "lucide-react";
 import RemoveBusiness from "@/app/(main)/dashboard/RemoveBusiness";

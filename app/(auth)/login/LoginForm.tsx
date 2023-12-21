@@ -56,7 +56,11 @@ const LoginForm = () => {
       >
         {/* <!-- Logo --> */}
         <div className="flex justify-center items-center">
-          {/* <img src="#" alt="" className="w-48 h-auto" /> */}
+          <img
+            src="https://img.icons8.com/?size=100&id=rAyFE7C2Av8s&format=png&color=22C3E6"
+            alt=""
+            className="w-16 h-auto"
+          />
           <span className="font-bold text-3xl">Biz List</span>
         </div>
         {/* <!-- Header --> */}

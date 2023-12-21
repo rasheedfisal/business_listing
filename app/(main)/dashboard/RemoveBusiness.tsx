@@ -69,13 +69,14 @@ const RemoveBusiness = ({ id }: Props) => {
       </DialogTrigger>
       <DialogContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
             <p>
-              are you sure you want to delete this? any data relative to this
-              will by <strong> deleted</strong>!<strong> for ever</strong>
+              are you sure you want to delete this? any data related to this
+              record will by <strong> deleted</strong>{" "}
+              <strong> permanently</strong>
             </p>
             <label className="mb-2 block">
-              please write this number {randomNumber} to confirm
+              please type this number <strong>{randomNumber}</strong> to confirm
             </label>
             <FormField
               disabled={isLoading}

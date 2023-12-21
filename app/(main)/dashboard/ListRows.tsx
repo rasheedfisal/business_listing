@@ -1,5 +1,5 @@
 "use client";
-import { Calendar, GripVertical, Mail } from "lucide-react";
+import { Calendar, Mail, MoreVertical } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import RemoveBusiness from "./RemoveBusiness";
@@ -18,12 +18,12 @@ const ListRows = ({ id, title, userEmail, createdAt }: Props) => {
   const { user } = useSupabaseUser();
   if (!user) return <Loader />;
   return (
-    <div key={id} className="block">
+    <div key={id} className="block space-y-3">
       <div
-        className={`relative group ${user.email === userEmail ? "hidden" : ""}`}
+        className={`relative group ${user.email !== userEmail ? "hidden" : ""}`}
       >
         <button className={`absolute top-0 right-0`}>
-          <GripVertical className="text-lg relative" />
+          <MoreVertical className="text-lg relative" />
         </button>
         <div className="absolute top-1 right-6 hidden group-focus-within:grid place-items-center bg-gray-50 min-w-fit py-4 px-2 rounded-md shadow-lg outline outline-2 outline-indigo-200">
           <div className="flex flex-col">
@@ -55,6 +55,7 @@ const ListRows = ({ id, title, userEmail, createdAt }: Props) => {
           </div>
         </div>
       </div>
+      <hr />
     </div>
   );
 };
