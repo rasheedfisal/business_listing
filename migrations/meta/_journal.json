@@ -15,6 +15,13 @@
       "when": 1703125612654,
       "tag": "0001_tough_gertrude_yorkes",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1703147537340,
+      "tag": "0002_peaceful_squadron_sinister",
+      "breakpoints": true
     }
   ]
 }

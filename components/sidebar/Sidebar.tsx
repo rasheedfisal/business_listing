@@ -1,10 +1,9 @@
 import { BookPlus, LayoutGrid } from "lucide-react";
 import React from "react";
 import CustomLink from "./CustomLink";
+import Logout from "./Logout";
 
 const Sidebar = () => {
-  const rootFolder = "dashboard";
-
   return (
     <div
       className="bg-gray-50 min-w-full px-4 py-2 flex flex-col gap-1 sticky top-0 h-screen max-md:items-center max-md:px-2"
@@ -34,13 +33,15 @@ const Sidebar = () => {
         <div className="relative top-2 hidden group-focus-within:grid place-items-center bg-gray-50 w-44 py-4 rounded-md shadow-lg outline outline-2 outline-indigo-200 mb-4 max-md:py-0 max-md:w-full">
           <div className="flex flex-col gap-1">
             <CustomLink
-              path={`${rootFolder}/buisness`}
-              title="Create Business"
+              path={`dashboard/new`}
+              title="Create"
               icon={<BookPlus />}
             />
           </div>
         </div>
       </div>
+
+      <Logout />
     </div>
   );
 };

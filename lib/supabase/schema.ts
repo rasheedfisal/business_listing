@@ -14,7 +14,6 @@ export const businesses = pgTable("businesses", {
 
 export const users = pgTable("users", {
   id: uuid("id").primaryKey().notNull(),
-  fullName: text("full_name"),
   email: text("email"),
   createdAt: timestamp("created_at", { withTimezone: true, mode: "string" })
     .defaultNow()

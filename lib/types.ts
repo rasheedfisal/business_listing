@@ -21,3 +21,7 @@ export const SignUpSchema = z
     message: "Passwords don't match.",
     path: ["confirmPassword"],
   });
+
+export const CreateBusinessSchema = z.object({
+  title: z.string().describe("Title").min(1, "Title is Required"),
+});
