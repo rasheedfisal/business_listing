@@ -1,0 +1,20 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1703120747006,
+      "tag": "0000_fluffy_swarm",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1703125612654,
+      "tag": "0001_tough_gertrude_yorkes",
+      "breakpoints": true
+    }
+  ]
+}
