@@ -1,37 +1,27 @@
 import TitleBorder from "@/components/global/TitleBorder";
 import React from "react";
-import db from "@/lib/supabase/db";
-import FormatDate from "@/lib/Date";
-import { businesses, users } from "@/migrations/schema";
-import { eq } from "drizzle-orm";
-import { Calendar, GripVertical, Mail } from "lucide-react";
-import RemoveBusiness from "@/app/(main)/dashboard/RemoveBusiness";
-import Link from "next/link";
 import ListRows from "./ListRows";
+import SearchBar from "./SearchBar";
 
-const GetBusinesses = async () => {
+import { findBusiness } from "@/lib/server-actions/business-actions";
+
+const GetBusinesses = async (searchTerm?: string) => {
   try {
-    return await db
-      .select({
-        id: businesses.id,
-        title: businesses.title,
-        createdAt: businesses.createdAt,
-        userEmail: users.email,
-      })
-      .from(businesses)
-      .innerJoin(users, eq(users.id, businesses.createdBy));
+    const result = await findBusiness(searchTerm);
+    return result;
   } catch (error) {
     console.log(error);
   }
 };
+const BusinessList = async ({ query }: { query: string }) => {
+  const result = await GetBusinesses(query);
 
-const BusinessList = async () => {
-  const result = await GetBusinesses();
-  if (!result) return;
+  if (!result || result === null) return;
   return (
     <div className="bg-gray-50 w-full px-12 py-6 rounded-md shadow-lg mb-4 max-md:px-4 max-md:py-2">
       <div className="block md:flex md:items-center md:justify-between space-y-2 mb-3">
         <TitleBorder title="Current Businesses" />
+        <SearchBar />
       </div>
 
       {result.length > 0 ? (
